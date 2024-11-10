@@ -6,7 +6,6 @@ dotenv.config();
 
 const app = express();
 const PORT = config.port;
-
 app.get("/", (req, res) => {
   return res.json({ message: "server is ready now" });
 });
