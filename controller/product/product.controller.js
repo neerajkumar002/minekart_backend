@@ -45,6 +45,39 @@ export const createProduct = async (req, res) => {
     .json({ success: true, message: "product create successfuly" });
 };
 
+//update product
+export const updateProduct = async (req, res) => {
+  try {
+    const { productId } = req.params;
+    const { title, description, price, stockQuantity, category, mainImage } =
+      req.body;
+    const findProduct = await Product.findById(productId);
+    if (!findProduct) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Product does not exist" });
+    }
+
+    findProduct.title = title || findProduct.title;
+    findProduct.description = description || findProduct.description;
+    findProduct.price = price || findProduct.price;
+    findProduct.stockQuantity = stockQuantity || findProduct.stockQuantity;
+    findProduct.category = category || findProduct.category;
+    findProduct.mainImage = mainImage || findProduct.mainImage;
+
+    //update
+    await findProduct.save();
+
+    return res.status(200).json({
+      success: true,
+      updatedProduct: findProduct,
+      message: "Product updated successfully",
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 // delete product
 export const deleteProduct = async (req, res) => {
   const { productId } = req.params;
