@@ -1,5 +1,6 @@
 import Product from "../../models/products/Product.js";
 
+//create product controller
 export const createProduct = async (req, res) => {
   try {
     const { title, description, price, stockQuantity, category, mainImage } =
@@ -42,4 +43,18 @@ export const createProduct = async (req, res) => {
   res
     .status(200)
     .json({ success: true, message: "product create successfuly" });
+};
+
+//get all products controller
+export const getAllProducts = async (req, res) => {
+  try {
+    const products = await Product.find({});
+    return res.status(200).json({
+      success: true,
+      products,
+      message: "Products fetched successfully",
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };
