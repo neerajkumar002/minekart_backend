@@ -1,4 +1,4 @@
-import { type } from "express/lib/response";
+
 import mongoose from "mongoose";
 
 const productSchema = new mongoose.Schema({
