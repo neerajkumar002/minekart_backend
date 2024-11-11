@@ -7,6 +7,10 @@ import productRoute from "./routes/product.route.js";
 
 const app = express();
 const PORT = config.port;
+
+//middelwares
+app.use(express.json()); // this middelware allow us to accept json data in the req.body
+
 app.get("/", (req, res) => {
   return res.json({ message: "server is ready now" });
 });
