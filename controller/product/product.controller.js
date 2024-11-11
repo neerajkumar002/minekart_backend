@@ -45,6 +45,27 @@ export const createProduct = async (req, res) => {
     .json({ success: true, message: "product create successfuly" });
 };
 
+// delete product
+export const deleteProduct = async (req, res) => {
+  const { productId } = req.params;
+  try {
+    const product = await Product.findByIdAndDelete(productId);
+    if (!product) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Product does not exist" });
+    }
+
+    return res.status(200).json({
+      success: true,
+      deletedProduct: product,
+      message: "Product deleted successfully",
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 //get all products controller
 export const getAllProducts = async (req, res) => {
   try {
